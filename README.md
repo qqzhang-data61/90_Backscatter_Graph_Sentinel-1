@@ -45,12 +45,12 @@ from which the statistic is calculated. Remember that the statistic is based on 
 given observation. A csv file is generated with the following information:
 
 
-![alt text](https://github.com/rogeralmengor/90_eovisual/blob/master/results/VH_backscatter_csv.png "CSV generated")
+![alt text](hhttps://github.com/rogeralmengor/90_Backscatter_Graph_Sentinel-1/blob/master/results/VH_Backscatter_Values_in_dB_2017_2018.png "CSV generated")
 
 
 Boxplots are created for every sentinel-1 observation:
 
-![alt text](https://github.com/rogeralmengor/90_eovisual/blob/master/results/S1B_IW_GRDH_20171122T054310_VH.png "Boxplots")
+![alt text](https://github.com/rogeralmengor/90_Backscatter_Graph_Sentinel-1/blob/master/results/S1A_IW_GRDH_20170120T054357_VH.png "Boxplots")
 
 ## Usage
 
