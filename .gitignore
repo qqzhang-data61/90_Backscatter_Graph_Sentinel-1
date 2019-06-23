@@ -1,3 +1,5 @@
 90_eovisual/*
 db/*
 _old/*
+test_sorter.py
+sorter.py
