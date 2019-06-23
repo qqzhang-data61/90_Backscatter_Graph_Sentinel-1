@@ -1,14 +1,14 @@
 import numpy
-import pandas as pd 
-import seaborn as sns 
-import os 
-import scipy 
-from scipy import stats 
-from openpyxl import Workbook 
-import glob 
-import matplotlib.pyplot as plt 
-from matplotlib.pyplot import show 
-import re 
+import pandas as pd
+import seaborn as sns
+import os
+import scipy
+from scipy import stats
+from openpyxl import Workbook
+import glob
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import show
+import re
 import argparse
 
 
@@ -24,19 +24,19 @@ parser.add_argument("-t", "--title", type = str, metavar = "", required = True, 
 parser.add_argument("-b", "--band", type = str, metavar = "", required = True, help= "S1 Band")
 args = parser.parse_args()
 
-def boxplot_name(path):
-	"""Creates a boxplot name from the 
+def boxplot_name(path: str):
+	"""Creates a boxplot name from the
 	json filename"""
 	prelim_name = os.path.basename(path)
 	boxplt_name = prelim_name.replace(".json", "")
 	return boxplt_name
 
-def cleaning_data(df):
+def cleaning_data(df: pd.DataFrame):
 	"""Eliminate all entries with negative values"""
 	df = df[(df["mean"]>0)]
-	return df 
+	return df
 
-def box_plots(df, plot_name, output_path):
+def box_plots(df: pd.DataFrame, plot_name: str, output_path: str):
 	"""Create boxplots, comparing the mean of two classes"""
 	fig_name = output_path + "/" + plot_name + ".png"
 	if os.path.exists(fig_name):
@@ -44,14 +44,14 @@ def box_plots(df, plot_name, output_path):
 	else:
 		try:
 			print("Creating boxplots for {!s}".format(plot_name))
-			boxplot = sns.boxplot(x=df["cid"], y=df["mean"], 
+			boxplot = sns.boxplot(x=df["cid"], y=df["mean"],
 				palette= "Blues").set_title(plot_name)
 			figure = boxplot.get_figure()
 			figure.savefig(fig_name, dpi=500)
 		except ValueError:
 			print("There is a problem with the min() value as empty sequency")
 
-def summary_stats(df, plot_name, band):
+def summary_stats(df: pd.DataFrame, plot_name:str, band:str):
 	"""Calculate a summary of the time feature statistic per class and returns a line
 	with such summary, a line per time feature"""
 	c = {}
@@ -62,7 +62,7 @@ def summary_stats(df, plot_name, band):
 	match = re.search(r"\d{4}\d{2}\d{2}",plot_name)
 	date=match.group()
 	c["date"] = date
-	c["band"] = band 
+	c["band"] = band
 
 	for k, v in dictionary.items():
 		name = str(v) + "_mean"
@@ -73,15 +73,15 @@ def summary_stats(df, plot_name, band):
 
 	return c
 
-def df_to_csv(df, outfolder, title):
+def df_to_csv(df:pd.DataFrame, outfolder: str, title:str):
 	"""Stores the information contained in a dataframe in a csv file"""
 	csv = outfolder + "/" + title + ".csv"
 	df.to_csv(csv)
 	return csv
-	
 
-def time_feature_stats(infolder, outfolder, title, band):
-	"""Create a csv file containing the stats summary 
+
+def time_feature_stats(infolder:str, outfolder:str, title:str, band:str):
+	"""Create a csv file containing the stats summary
 	of all the time features contained in the json file"""
 	new_df = []
 	json_files = [os.path.join(root, file) for root, subdirs, files
@@ -106,7 +106,7 @@ def time_feature_stats(infolder, outfolder, title, band):
 
 
 
-def mk_graph(csv, Title):
+def mk_graph(csv:str, Title:str):
 	"""Make the time series graph from the information of a time series dataframe"""
 	raw_df = pd.read_csv(csv)
 	cols = raw_df.columns.values
@@ -126,12 +126,3 @@ def mk_graph(csv, Title):
 
 if __name__ == '__main__':
 	time_feature_stats(args.infolder, args.outfolder, args.title, args.band)
-	
-
-
-
-
-
-
-
-
